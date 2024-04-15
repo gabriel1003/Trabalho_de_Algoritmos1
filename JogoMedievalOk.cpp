@@ -7,7 +7,7 @@ int main() {
   system("pause");
   system("cls");
 
-  cout << "\tVocê agora é Percival, um mestre de armas do reino"
+  cout << "\tVocê agora é Percival, um mestre de armas do "
        << " reino de Itajaí, um reino conhecido por seus \n"
        << "vástos rios, florestas, e, mais importante, pela"
        << "paz duradoura que lá havia.\n"
