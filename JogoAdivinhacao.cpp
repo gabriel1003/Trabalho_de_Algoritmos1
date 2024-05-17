@@ -5,13 +5,12 @@ using namespace std;
 
 int main() {
     system("cls");
-    cout << "\tBem vindo ao jogo de advinhação";
+    cout << "\tBem-vindo ao jogo de advinhação mais casca grossa que você já jogou.";
     system("pause");
     system("cls");
 
     char desisao;
-    cout << "\tBem-vindo ao melhor jogo de adivinhação que você já jogou.\n"
-    << "Este jogo consiste em três fazes, a cada faze ele se torna mais difícil trazendo,\n"
+    cout << "\tEste jogo consiste em três fazes, a cada faze ele se torna mais difícil trazendo,\n"
     << "desafios mais arriscados.\n"
     << "O objetivo é descobrir qual é a senha criada pelo jogo. Se você estiver preparado\n"
     << "vamos começar a jogar.\n"
@@ -34,7 +33,7 @@ int main() {
     system("pause");
     system("cls");
 
-    int opcao, dificuldade, numDigitos, tentativas, i, j, posicaoCorreto = 0;
+    int opcao, dificuldade, numDigitos, tentativas, i, j, posicaoCorreto, digitosCorretos;
     bool jogoAtivo = false;
 
     // Variáveis para armazenar dígitos individualmente
@@ -112,6 +111,8 @@ int main() {
         if (numDigitos >= 5) cin >> palpite5;
 
                 // Verificação do palpite 
+posicaoCorreto = 0; //Reinicia a variável como zero a cada interação
+digitosCorretos = 0; //Reinicia a variável a cada interação para verificar quantos números digitados estão corretos.
 
         if (palpite1 == codigo1) posicaoCorreto++;
         if (numDigitos >= 2 && palpite2 == codigo2) posicaoCorreto++;
@@ -119,11 +120,19 @@ int main() {
         if (numDigitos >= 4 && palpite4 == codigo4) posicaoCorreto++;
         if (numDigitos >= 5 && palpite5 == codigo5) posicaoCorreto++;
 
+//Código para verificar quais números digitados estão corretos
+if (palpite1 == codigo2 || palpite1 == codigo3 || palpite1 == codigo4 || palpite1 == codigo5) digitosCorretos++;
+if (numDigitos >= 2 && (palpite2 == codigo1 || palpite2 == codigo3 || palpite2 == codigo4 || palpite2 == codigo5)) digitosCorretos++;
+if (numDigitos >= 3 && (palpite3 == codigo1 || palpite3 == codigo2 || palpite3 == codigo4 || palpite3 == codigo5)) digitosCorretos++;
+if (numDigitos >= 4 && (palpite4 == codigo1 || palpite4 == codigo2 || palpite4 == codigo3 || palpite4 == codigo5)) digitosCorretos++;
+if (numDigitos >= 5 && (palpite5 == codigo1 || palpite5 == codigo2 || palpite5 == codigo3 || palpite5 == codigo4)) digitosCorretos++;
+
         if (posicaoCorreto == numDigitos) {
             cout << "Parabéns! Você venceu!\n";
             jogoAtivo = false;
         } else {
-            cout << "\nvocê acertou: " << posicaoCorreto << " dígitos.\n ";
+            cout << "\nvocê acertou: " << digitosCorretos << " dígitos.\n"
+            <<  "e " << posicaoCorreto << " esta na posição correta.\n";
             tentativas--;
             cout << "E você tem: " << tentativas << " tentativas." << endl;
 
@@ -144,8 +153,11 @@ int main() {
 case 2:
 //Codigo para averiguar o nível desejado pelo jogador
 cout << "\t(1) nível fácil \n"
+<<"\t(Este nível consiste em acertar uma senha de 3 dígitos e você tem somente 8 tentativas para isso.)\n"
 << "\t(2) nível intermediario\n"
+<< "\t(Este nível consiste em ter que acertar uma cenha de 4 dígitos e você tem somente 10 tentativas para isso.)\n"
 << "\t(3) dificil (Recomendado para jogadores experientes.)"
+<< "\t(Este nível consiste em ter que acertar uma senha de 5 dígitos e você tem somente 12 tentativas para isso.)\n"
 << "\tEscolha a sua opção:";
 cin >> dificuldade;
 break;
