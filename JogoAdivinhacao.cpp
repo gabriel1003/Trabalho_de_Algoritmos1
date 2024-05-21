@@ -33,7 +33,7 @@ int main() {
     system("pause");
     system("cls");
 
-    int opcao, dificuldade, numDigitos, tentativas, i, j, posicaoCorreto, digitosCorretos;
+    int opcao, dificuldade, numDigitos, tentativas, i, posicaoCorreto, digitosCorretos;
     bool jogoAtivo = false;
 
     // Variáveis para armazenar dígitos individualmente
@@ -104,11 +104,50 @@ int main() {
             while (jogoAtivo) {
                 // Entrada do palpite (usando variáveis individuais)
                 cout << "Digite seu palpite de " << numDigitos << " digitos: ";
-                        if (numDigitos >= 1) cin >> palpite1;
-        if (numDigitos >= 2) cin >> palpite2;
-        if (numDigitos >= 3) cin >> palpite3;
-        if (numDigitos >= 4) cin >> palpite4;
-        if (numDigitos >= 5) cin >> palpite5;
+
+    cout << "\tDigite o primeiro dígito! ";
+    cin >> palpite1;
+    while (palpite1 < 1 || palpite1 > 6) {
+        cout << "\tDigite um dígito válido. ";
+        cin >> palpite1;
+}
+    
+cout << "\tDigite o segundo dígito. ";
+cin >> palpite2;
+
+while (numDigitos >= 2 && (palpite2 < 1 || palpite2 == palpite1 || palpite2 > 6)) {
+    cout << "\tDigite um dígito válido! ";
+
+} 
+
+cout << "\tDigite o terceiro dígito! ";
+cin >> palpite3;
+while (numDigitos >= 3 && (palpite3 < 1 || palpite3 == palpite1 || palpite3 == palpite2 || palpite3 > 6)) {
+    cout << "\tDigite um dígito válido! ";
+;
+} 
+
+cout << "\tDigite o quarto dígito! ";
+cin >> palpite4;
+
+while (numDigitos >= 4 && (palpite4 < 1 || palpite4 == palpite1 || palpite4 == palpite2 || palpite4 == palpite3 || palpite4 > 6)) {
+    cout << "\tDigite um dígito válido! ";
+ 
+} 
+
+cout << "\tDigite o quinto dígito! ";
+cin >> palpite5;
+
+while (numDigitos >= 5 && (palpite5 < 1 || palpite5 == palpite1 || palpite5 == palpite2 || palpite5 == palpite3 || palpite5 == palpite4 || palpite5 > 6)) {
+    cout << "\tDigite um dígito válido! ";
+ 
+}
+
+//                        if (numDigitos >= 1) cin >> palpite1;
+//        if (numDigitos >= 2) cin >> palpite2;//
+//        if (numDigitos >= 3) cin >> palpite3;
+//        if (numDigitos >= 4) cin >> palpite4;
+//        if (numDigitos >= 5) cin >> palpite5;
 
                 // Verificação do palpite 
 posicaoCorreto = 0; //Reinicia a variável como zero a cada interação
