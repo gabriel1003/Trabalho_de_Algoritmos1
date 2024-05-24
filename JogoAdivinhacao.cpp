@@ -33,7 +33,7 @@ int main() {
     system("pause");
     system("cls");
 
-    int opcao, dificuldade, numDigitos, tentativas, i, posicaoCorreto, digitosCorretos;
+    int opcao, dificuldade, numDigitos, tentativas, posicaoCorreto, digitosCorretos;
     bool jogoAtivo = false;
 
     // Variáveis para armazenar dígitos individualmente
@@ -93,7 +93,7 @@ int main() {
                         } while (codigo1 == codigo2 || codigo1 == codigo3 || codigo1 == codigo4 || codigo1 == codigo5 || codigo2 == codigo3 || codigo2 == codigo4 || codigo2 == codigo5 || codigo3 == codigo4 || codigo3 == codigo5 || codigo4 == codigo5);
                         
                         break;
-                        default :
+                       default :
                         cout << "\nDigite uma opção válida! " << endl;
                         break;
                 }
@@ -103,52 +103,67 @@ int main() {
 
             while (jogoAtivo) {
                 // Entrada do palpite (usando variáveis individuais)
-                cout << "Digite seu palpite de " << numDigitos << " digitos: ";
 
-    cout << "\tDigite o primeiro dígito! ";
-    cin >> palpite1;
-    while (palpite1 < 1 || palpite1 > 6) {
-        cout << "\tDigite um dígito válido. ";
-        cin >> palpite1;
-}
-    
-cout << "\tDigite o segundo dígito. ";
-cin >> palpite2;
+palpite1 = 0;
+palpite2 = 0;
+palpite3 = 0;
+palpite4 = 0;
+palpite5 = 0;
 
-while (numDigitos >= 2 && (palpite2 < 1 || palpite2 == palpite1 || palpite2 > 6)) {
-    cout << "\tDigite um dígito válido! ";
+//Entrada do palpite
+cout << "Digite o seu palpite de " << numDigitos << " Dígitos: ";
+//Loop para receber os dígitos.
 
-} 
+for (int i = 1; i <= numDigitos; i++) {
+    int palpitAtual;
+    bool digitoUsado;
+    do {
+        digitoUsado = false;
+        cout << "\nDigite o " << i << "º dígito.\n ";
+        cin >> palpitAtual;
+        if (palpitAtual < 1 || palpitAtual > 6) {
+            cout << "\nDigite um número válido! (entre 1 e 6)\n";
+            continue;
+        }
 
-cout << "\tDigite o terceiro dígito! ";
-cin >> palpite3;
-while (numDigitos >= 3 && (palpite3 < 1 || palpite3 == palpite1 || palpite3 == palpite2 || palpite3 > 6)) {
-    cout << "\tDigite um dígito válido! ";
-;
-} 
+                            // Verifica se o dígito já foi usado no palpite atual
+                            switch (i) {
+                                case 2:
+                            if (palpitAtual == palpite1)
+                                digitoUsado = true; break;
+                                case 3:
+                                if (palpitAtual == palpite1 || palpitAtual == palpite2)digitoUsado = true;
+                                break;
+                                case 4: if (palpitAtual == palpite1 || palpitAtual == palpite2 || palpitAtual == palpite3) digitoUsado = true;
+                                break;
+                                case 5: if (palpitAtual == palpite1 || palpitAtual == palpite2 || palpitAtual == palpite3 || palpitAtual == palpite4) digitoUsado = true;
+                                break;
+                            }
 
-cout << "\tDigite o quarto dígito! ";
-cin >> palpite4;
+                            if (digitoUsado) {
+                                cout << "\tVocê já digitou esse dígito. Tente outro.\n";
+                            }
+                        } while (palpitAtual < 1 || palpitAtual > 6 || digitoUsado);
 
-while (numDigitos >= 4 && (palpite4 < 1 || palpite4 == palpite1 || palpite4 == palpite2 || palpite4 == palpite3 || palpite4 > 6)) {
-    cout << "\tDigite um dígito válido! ";
- 
-} 
-
-cout << "\tDigite o quinto dígito! ";
-cin >> palpite5;
-
-while (numDigitos >= 5 && (palpite5 < 1 || palpite5 == palpite1 || palpite5 == palpite2 || palpite5 == palpite3 || palpite5 == palpite4 || palpite5 > 6)) {
-    cout << "\tDigite um dígito válido! ";
- 
-}
-
-//                        if (numDigitos >= 1) cin >> palpite1;
-//        if (numDigitos >= 2) cin >> palpite2;//
-//        if (numDigitos >= 3) cin >> palpite3;
-//        if (numDigitos >= 4) cin >> palpite4;
-//        if (numDigitos >= 5) cin >> palpite5;
-
+           //Faz a atribuição dos valores.
+            switch (i) {
+                case 1:
+                palpite1 = palpitAtual;
+                break;
+                case 2:
+                palpite2 = palpitAtual;
+                break;
+                case 3:
+                palpite3 = palpitAtual;
+                break;
+                case 4:
+                palpite4 = palpitAtual;
+                break;
+                case 5:
+                palpite5 = palpitAtual;
+                break;
+            }
+           }
                 // Verificação do palpite 
 posicaoCorreto = 0; //Reinicia a variável como zero a cada interação
 digitosCorretos = 0; //Reinicia a variável a cada interação para verificar quantos números digitados estão corretos.
