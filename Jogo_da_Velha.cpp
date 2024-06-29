@@ -64,6 +64,7 @@ int main() {
     int jogador1 = 100, jogador2 = 200;
     int jogador_atual;
     bool jogo_terminou = false;
+    bool computador_defensivo = false; // Flag para postura defensiva do computador
 
     do {
         cout << "\tDigite (1) para jogar em dupla;\n"
@@ -117,8 +118,45 @@ int main() {
             }
             break;
         case 2:
-            // Implementar regra para escolher qual jogador vai ser e escolha de tabuleiro.
-            // Mas neste caso um dos jogadores será o computador.
+            cout << "\tDigite 1 para ser o jogador (#) e 2 para ser o (x)\n"
+                 << "\tqual jogador você quer ser?";
+            cin >> opcao;
+
+            if (opcao == 1) {
+                cout << "\nParabens você o jogador (#) e o computador será o (x)\n"
+                     << "No jogo você sera representado pelo número 100 e o coputador pelo 200." << endl;
+                computador_defensivo = true; // O computador será defensivo
+            } else if (opcao == 2) {
+                cout << "\tParabens você é o jogador (x) e o computador o (#)\n"
+                     << "\tVocê sera representado no jogo pelo número 200 e o computador sera o número 100" << endl;
+            } else {
+                cout << "\tDigite uma opção válida." << endl;
+            }
+
+            cout << "\tAgora escolha o tabuleiro.\n"
+                 << "\tDigite um para tabuleiro simples com (3) linhas e (3) colunas;\n"
+                 << "\tDigite 2 para tabuleiro intermediario com 6 linhas e colunas;\n"
+                 << "\tE digite 3 para tabuleiro ampliado que é 9 x 9.\n"
+                 << "\tQual é a sua opção?";
+            cin >> opcao;
+
+            switch (opcao) {
+            case 1:
+                qtd_linhas = 3;
+                qtd_colunas = 3;
+                break;
+            case 2:
+                qtd_linhas = 6;
+                qtd_colunas = 6;
+                break;
+            case 3:
+                qtd_linhas = 9;
+                qtd_colunas = 9;
+                break;
+            default:
+                cout << "\nDigite uma opção válida." << endl;
+                break;
+            }
             break;
         case 3:
             cout << "\tJogo desenvolvido por gabriel Samersla merçoni para a matéria de algoritmos 1 do professor Eduardo Alves da Silva." << endl;
@@ -142,25 +180,102 @@ int main() {
             while (!jogo_terminou) {
                 imprimir_matriz(m, qtd_linhas, qtd_colunas); // Exibir o tabuleiro
 
-                // Solicitar a posição ao jogador
+                // Jogada do jogador
                 if (jogador_atual == 1) {
                     cout << "Jogador #, digite a linha e coluna que você deseja (separadas por espaço): ";
-                } else {
-                    cout << "Jogador x, digite a linha e coluna que você deseja (separadas por espaço): ";
-                }
-                cin >> l >> c;
-
-                // Validar a posição
-                while (l < 0 || l >= qtd_linhas || c < 0 || c >= qtd_colunas || m[l][c] != 0) {
-                    cout << "Posição inválida. Tente novamente: ";
                     cin >> l >> c;
-                }
 
-                // Fazer a jogada
-                if (jogador_atual == 1) {
+                    // Validar a posição
+                    while (l < 0 || l >= qtd_linhas || c < 0 || c >= qtd_colunas || m[l][c] != 0) {
+                        cout << "Posição inválida. Tente novamente: ";
+                        cin >> l >> c;
+                    }
+
                     m[l][c] = jogador1;
-                } else {
-                    m[l][c] = jogador2;
+                }
+                // Jogada do computador
+                else {
+                    // Lógica do computador:
+                    if (computador_defensivo) {
+                        // Defensivo (jogador começou)
+                        // ... lógica para jogadas defensivas ...
+                        cout << "Computador jogando..." << endl;
+
+                        //  Buscar posição válida para bloquear
+                        for (int i = 0; i < qtd_linhas; i++) {
+                            for (int j = 0; j < qtd_colunas; j++) {
+                                if (m[i][j] == 0) {
+                                    // Bloqueio de Linha
+                                    if ((i > 0 && m[i - 1][j] == jogador1 && m[i + 1][j] == jogador1) ||
+                                        (i > 0 && m[i - 1][j] == jogador1 && m[i][j + 1] == jogador1) ||
+                                        (i > 0 && m[i - 1][j] == jogador1 && m[i][j - 1] == jogador1) ||
+                                        (i < qtd_linhas - 1 && m[i + 1][j] == jogador1 && m[i][j + 1] == jogador1) ||
+                                        (i < qtd_linhas - 1 && m[i + 1][j] == jogador1 && m[i][j - 1] == jogador1) ||
+                                        (j > 0 && m[i][j - 1] == jogador1 && m[i][j + 1] == jogador1)) {
+                                        l = i;
+                                        c = j;
+                                        m[l][c] = jogador2;
+                                        goto fim_jogada_computador; // Sai do loop
+                                    }
+                                    // Bloqueio de Coluna
+                                    if ((j > 0 && m[i][j - 1] == jogador1 && m[i][j + 1] == jogador1) ||
+                                        (j > 0 && m[i][j - 1] == jogador1 && m[i + 1][j] == jogador1) ||
+                                        (j > 0 && m[i][j - 1] == jogador1 && m[i - 1][j] == jogador1) ||
+                                        (j < qtd_colunas - 1 && m[i][j + 1] == jogador1 && m[i + 1][j] == jogador1) ||
+                                        (j < qtd_colunas - 1 && m[i][j + 1] == jogador1 && m[i - 1][j] == jogador1) ||
+                                        (i > 0 && m[i - 1][j] == jogador1 && m[i + 1][j] == jogador1)) {
+                                        l = i;
+                                        c = j;
+                                        m[l][c] = jogador2;
+                                        goto fim_jogada_computador; // Sai do loop
+                                    }
+                                    // Bloqueio de Diagonal Principal
+                                    if ((i > 0 && j > 0 && m[i - 1][j - 1] == jogador1 && m[i + 1][j + 1] == jogador1) ||
+                                        (i < qtd_linhas - 1 && j < qtd_colunas - 1 && m[i + 1][j + 1] == jogador1 && m[i - 1][j - 1] == jogador1) ||
+                                        (i > 0 && j < qtd_colunas - 1 && m[i - 1][j + 1] == jogador1 && m[i + 1][j - 1] == jogador1) ||
+                                        (i < qtd_linhas - 1 && j > 0 && m[i + 1][j - 1] == jogador1 && m[i - 1][j + 1] == jogador1)) {
+                                        l = i;
+                                        c = j;
+                                        m[l][c] = jogador2;
+                                        goto fim_jogada_computador; // Sai do loop
+                                    }
+                                    // Bloqueio de Diagonal Secundaria
+                                    if ((i > 0 && j < qtd_colunas - 1 && m[i - 1][j + 1] == jogador1 && m[i + 1][j - 1] == jogador1) ||
+                                        (i < qtd_linhas - 1 && j > 0 && m[i + 1][j - 1] == jogador1 && m[i - 1][j + 1] == jogador1) ||
+                                        (i > 0 && j > 0 && m[i - 1][j - 1] == jogador1 && m[i + 1][j + 1] == jogador1) ||
+                                        (i < qtd_linhas - 1 && j < qtd_colunas - 1 && m[i + 1][j + 1] == jogador1 && m[i - 1][j - 1] == jogador1)) {
+                                        l = i;
+                                        c = j;
+                                        m[l][c] = jogador2;
+                                        goto fim_jogada_computador; // Sai do loop
+                                    }
+                                }
+                            }
+                        }
+                        // Se nenhuma posição válida for encontrada para bloquear, escolher uma aleatoriamente
+                        srand(time(0));
+                        l = rand() % qtd_linhas;
+                        c = rand() % qtd_colunas;
+                        while (m[l][c] != 0) {
+                            l = rand() % qtd_linhas;
+                            c = rand() % qtd_colunas;
+                        }
+                        m[l][c] = jogador2;
+                    } else {
+                        // Ofensivo (computador começou)
+                        // ... lógica para jogadas ofensivas ...
+                        cout << "Computador jogando..." << endl;
+                        // Escolha aleatória para o computador
+                        srand(time(0));
+                        l = rand() % qtd_linhas;
+                        c = rand() % qtd_colunas;
+                        while (m[l][c] != 0) {
+                            l = rand() % qtd_linhas;
+                            c = rand() % qtd_colunas;
+                        }
+                        m[l][c] = jogador2;
+                    }
+fim_jogada_computador: ; // Rótulo para sair do loop
                 }
 
                 // Verificar se o jogo terminou (linha, coluna, diagonais)
