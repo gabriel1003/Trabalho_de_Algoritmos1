@@ -54,7 +54,7 @@ int main() {
     int qtd_linhas, qtd_colunas, opcao = 0;
     int jogador1 = 100, jogador2 = 200;
     int jogador_atual;
-    bool jogo_terminou = false;
+    bool jogo_terminou;
     bool computador_defensivo = false; // Flag para postura defensiva do computador
 
     do {
@@ -68,7 +68,9 @@ int main() {
         int l = 0, c = 0;
 
         switch (opcao) {
-        case 1: // Jogar em dupla
+        case 1:
+            system("cls");
+            jogo_terminou = false; // Reinicie aqui
             cout << "\tDigite 1 para ser o jogador (#) e 2 para ser o (x)\n"
                  << "\tqual jogador você quer ser?";
             cin >> opcao;
@@ -107,9 +109,15 @@ int main() {
                 break;
             default:
                 cout << "\nDigite uma opção válida." << endl;
-                break; // Sai do case 1 se a opção for inválida
+                break;
             }
 
+//Limpar matriz
+for (int i = 0; i < qtd_linhas; i++) {
+    for (int j = 0; j < qtd_colunas; j++) {
+        m[i][j] = 0;
+    }
+}
             // Escolher jogador inicial aleatoriamente
             srand(time(0));
             jogador_atual = (rand() % 2) + 1;
@@ -192,9 +200,16 @@ int main() {
                     }
                 }
 
+                // Mudar o jogador
+                jogador_atual = (jogador_atual == 1) ? 2 : 1;
+
+                
             }
-            break; // Sai do case 1 após o jogo terminar
+            
+            break;
         case 2: // Jogar contra o computador
+            system("cls");
+            jogo_terminou = false; // Reinicie aqui
             cout << "\tDigite 1 para ser o jogador (#) e 2 para ser o (x)\n"
                  << "\tqual jogador você quer ser?";
             cin >> opcao;
@@ -234,9 +249,15 @@ int main() {
                 break;
             default:
                 cout << "\nDigite uma opção válida." << endl;
-                break; // Sai do case 2 se a opção for inválida
+                break; 
             }
 
+//Limpando a matriz
+for (int i = 0; i < qtd_linhas; i++) {
+    for (int j = 0; j < qtd_colunas; j++) {
+        m[i][j] = 0;
+    }
+}
             // Escolher jogador inicial aleatoriamente
             srand(time(0));
             jogador_atual = (rand() % 2) + 1;
@@ -244,6 +265,7 @@ int main() {
 
             // Loop principal do jogo contra o computador
             while (!jogo_terminou) {
+
                 imprimir_matriz(m, qtd_linhas, qtd_colunas);
 
                 // Jogada do jogador atual
@@ -316,9 +338,11 @@ int main() {
                         }
                         // Se nenhuma posição válida for encontrada para bloquear, escolher uma aleatoriamente
                         srand(time(0));
-                        l = rand() % qtd_linhas;
-                        c = rand() % qtd_colunas;
-                        while (m[l][c] != 0) {
+                        l = rand() % qtd_linhas; 
+                        c = rand() % qtd_colunas; 
+
+                        // Validar a posição
+                        while (m[l][c] != 0) { // Validar a posição **após** a escolha
                             l = rand() % qtd_linhas;
                             c = rand() % qtd_colunas;
                         }
@@ -327,9 +351,11 @@ int main() {
                         // Lógica ofensiva
                         // Escolha aleatória para o computador
                         srand(time(0));
-                        l = rand() % qtd_linhas;
+                        l = rand() % qtd_linhas; 
                         c = rand() % qtd_colunas;
-                        while (m[l][c] != 0) {
+
+                        // Validar a posição
+                        while (m[l][c] != 0) { // Validar a posição **após** a escolha
                             l = rand() % qtd_linhas;
                             c = rand() % qtd_colunas;
                         }
@@ -388,7 +414,9 @@ fim_jogada_computador: ; // Rótulo para sair do loop
 
                 // Mudar o jogador
                 jogador_atual = (jogador_atual == 1) ? 2 : 1;
+
             }
+                            
             break; // Sai do case 2 após o jogo terminar
         case 3:
             cout << "\tJogo desenvolvido por gabriel Samersla merçoni para a matéria de algoritmos 1 do professor Eduardo Alves da Silva." << endl;
