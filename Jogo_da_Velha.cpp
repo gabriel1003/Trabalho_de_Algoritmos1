@@ -51,7 +51,7 @@ int main() {
     system("cls");
 
     int m[LINHAS][COLUNAS] = {0};
-    int qtd_linhas, qtd_colunas, opcao = 0;
+    int qtd_linhas = 3, qtd_colunas = 3, opcao = 0;
     int jogador1 = 100, jogador2 = 200;
     int jogador_atual;
     bool jogo_terminou;
@@ -86,31 +86,6 @@ int main() {
                 break; // Sai do case 1 se a opção for inválida
             }
 
-            // Escolher o tamanho do tabuleiro
-            cout << "\tAgora escolha o tabuleiro.\n"
-                 << "\tDigite um para tabuleiro simples com (3) linhas e (3) colunas;\n"
-                 << "\tDigite 2 para tabuleiro intermediario com 6 linhas e colunas;\n"
-                 << "\tE digite 3 para tabuleiro ampliado que é 9 x 9.\n"
-                 << "\tQual é a sua opção?";
-            cin >> opcao;
-
-            switch (opcao) {
-            case 1:
-                qtd_linhas = 3;
-                qtd_colunas = 3;
-                break;
-            case 2:
-                qtd_linhas = 6;
-                qtd_colunas = 6;
-                break;
-            case 3:
-                qtd_linhas = 9;
-                qtd_colunas = 9;
-                break;
-            default:
-                cout << "\nDigite uma opção válida." << endl;
-                break;
-            }
 
 //Limpar matriz
 for (int i = 0; i < qtd_linhas; i++) {
@@ -207,7 +182,7 @@ for (int i = 0; i < qtd_linhas; i++) {
             }
             
             break;
-        case 2: // Jogar contra o computador
+        case 2: 
             system("cls");
             jogo_terminou = false; // Reinicie aqui
             cout << "\tDigite 1 para ser o jogador (#) e 2 para ser o (x)\n"
@@ -223,33 +198,7 @@ for (int i = 0; i < qtd_linhas; i++) {
                      << "\tVocê sera representado no jogo pelo número 200 e o computador sera o número 100" << endl;
             } else {
                 cout << "\tDigite uma opção válida." << endl;
-                break; // Sai do case 2 se a opção for inválida
-            }
-
-            // Escolher o tamanho do tabuleiro
-            cout << "\tAgora escolha o tabuleiro.\n"
-                 << "\tDigite um para tabuleiro simples com (3) linhas e (3) colunas;\n"
-                 << "\tDigite 2 para tabuleiro intermediario com 6 linhas e colunas;\n"
-                 << "\tE digite 3 para tabuleiro ampliado que é 9 x 9.\n"
-                 << "\tQual é a sua opção?";
-            cin >> opcao;
-
-            switch (opcao) {
-            case 1:
-                qtd_linhas = 3;
-                qtd_colunas = 3;
                 break;
-            case 2:
-                qtd_linhas = 6;
-                qtd_colunas = 6;
-                break;
-            case 3:
-                qtd_linhas = 9;
-                qtd_colunas = 9;
-                break;
-            default:
-                cout << "\nDigite uma opção válida." << endl;
-                break; 
             }
 
 //Limpando a matriz
