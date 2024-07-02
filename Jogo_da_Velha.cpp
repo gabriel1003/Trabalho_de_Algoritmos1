@@ -248,7 +248,7 @@ for (int i = 0; i < qtd_linhas; i++) {
                                         l = i;
                                         c = j;
                                         m[l][c] = jogador2;
-                                        goto fim_jogada_computador; // Sai do loop
+                                        break; // Sai do loop interno
                                     }
                                     // Bloqueio de Coluna
                                     if ((j > 0 && m[i][j - 1] == jogador1 && m[i][j + 1] == jogador1) ||
@@ -260,7 +260,7 @@ for (int i = 0; i < qtd_linhas; i++) {
                                         l = i;
                                         c = j;
                                         m[l][c] = jogador2;
-                                        goto fim_jogada_computador; // Sai do loop
+                                        break; // Sai do loop interno
                                     }
                                     // Bloqueio de Diagonal Principal
                                     if ((i > 0 && j > 0 && m[i - 1][j - 1] == jogador1 && m[i + 1][j + 1] == jogador1) ||
@@ -270,7 +270,7 @@ for (int i = 0; i < qtd_linhas; i++) {
                                         l = i;
                                         c = j;
                                         m[l][c] = jogador2;
-                                        goto fim_jogada_computador; // Sai do loop
+                                        break; // Sai do loop interno
                                     }
                                     // Bloqueio de Diagonal Secundaria
                                     if ((i > 0 && j < qtd_colunas - 1 && m[i - 1][j + 1] == jogador1 && m[i + 1][j - 1] == jogador1) ||
@@ -280,7 +280,7 @@ for (int i = 0; i < qtd_linhas; i++) {
                                         l = i;
                                         c = j;
                                         m[l][c] = jogador2;
-                                        goto fim_jogada_computador; // Sai do loop
+                                        break; // Sai do loop interno
                                     }
                                 }
                             }
@@ -310,7 +310,6 @@ for (int i = 0; i < qtd_linhas; i++) {
                         }
                         m[l][c] = jogador2;
                     }
-fim_jogada_computador: ; // Rótulo para sair do loop
                 }
 
                 // Verificar se o jogo terminou (linha, coluna, diagonais)
